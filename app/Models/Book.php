@@ -1,10 +1,15 @@
 <?php
 
-namespace App\Models;
+     namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+     use Illuminate\Database\Eloquent\Model;
 
-class Book extends Model
-{
-    //
-}
+     class Book extends Model
+     {
+         protected $fillable = ['title', 'author', 'quantity', 'available'];
+
+         public function borrowLogs()
+         {
+             return $this->hasMany(BorrowLog::class, 'book_id');
+         }
+     }
