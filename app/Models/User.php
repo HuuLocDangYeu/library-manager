@@ -21,6 +21,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role', // Thêm trường role để phân quyền
     ];
 
     /**
@@ -44,5 +45,13 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    /**
+     * Lấy danh sách các lần mượn sách của user này.
+     */
+    public function borrowLogs()
+    {
+        return $this->hasMany(BorrowLog::class, 'user_id');
     }
 }
