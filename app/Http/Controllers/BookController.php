@@ -40,4 +40,10 @@
 
              return redirect()->route('books.index')->with('success', 'Sách đã được thêm thành công!');
          }
+
+         public function __construct()
+{
+    $this->middleware('auth');
+    $this->middleware('role:admin')->except('index');
+}
      }

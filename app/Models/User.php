@@ -54,4 +54,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(BorrowLog::class, 'user_id');
     }
+
+    public function isAdmin()
+{
+    return $this->role === 'admin';
+}
 }
