@@ -1,15 +1,18 @@
 <?php
 
-     namespace App\Models;
+namespace App\Models;
 
-     use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
-     class Book extends Model
-     {
-         protected $fillable = ['title', 'author', 'quantity', 'available'];
+class Book extends Model
+{
+    use HasFactory;
 
-         public function borrowLogs()
-         {
-             return $this->hasMany(BorrowLog::class, 'book_id');
-         }
-     }
+    protected $fillable = ['title', 'author', 'quantity', 'available'];
+
+    public function borrowLogs()
+    {
+        return $this->hasMany(BorrowLog::class, 'book_id');
+    }
+}
