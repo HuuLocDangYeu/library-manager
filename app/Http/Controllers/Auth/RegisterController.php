@@ -7,6 +7,9 @@ use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request; // Thêm dòng này
+
 
 class RegisterController extends Controller
 {
@@ -69,4 +72,9 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
         ]);
     }
+    protected function registered(Request $request, $user)
+{
+    Auth::logout(); // Đảm bảo user không tự động đăng nhập
+    return redirect('/login')->with('status', 'Đăng ký thành công! Vui lòng đăng nhập.');
+}
 }
