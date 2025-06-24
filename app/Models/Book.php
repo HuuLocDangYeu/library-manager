@@ -9,7 +9,19 @@ class Book extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title', 'author', 'quantity', 'available'];
+    protected $fillable = [
+        'title',
+        'author',
+        'publisher',
+        'published_year',
+        'category',
+        'isbn',
+        'location',
+        'cover_image',
+        'quantity',
+        'available',
+        'description',
+    ];
 
     public function borrowLogs()
     {

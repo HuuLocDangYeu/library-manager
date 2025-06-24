@@ -5,10 +5,98 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
     <style>
-        body { background: #f8fafc; }
-        .navbar-brand i { color: #0d6efd; margin-right: 6px; }
-        .navbar-nav .nav-link.active, .navbar-nav .nav-link:hover { color: #0d6efd !important; }
-        .card { box-shadow: 0 2px 12px rgba(0,0,0,0.05); }
+        body {
+            background: linear-gradient(120deg, #fafdff 0%, #e3f0ff 100%);
+            min-height: 100vh;
+            font-family: 'Segoe UI', 'Roboto', Arial, sans-serif;
+        }
+        .navbar {
+            background: #2563eb !important;
+            box-shadow: 0 2px 12px rgba(37,99,235,0.07);
+        }
+        .navbar-brand i {
+            color: #ffe066;
+            margin-right: 8px;
+        }
+        .navbar-brand, .navbar-nav .nav-link {
+            color: #fff !important;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            font-size: 1.1rem;
+            transition: color 0.2s;
+        }
+        .navbar-nav .nav-link.active, .navbar-nav .nav-link:hover {
+            color: #ffe066 !important;
+            background: rgba(255,255,255,0.10);
+            border-radius: 8px;
+        }
+        .card {
+            box-shadow: 0 4px 24px rgba(37,99,235,0.10);
+            border-radius: 18px;
+            border: 1.5px solid #e3f0ff;
+            background: #fff;
+            transition: box-shadow 0.2s, transform 0.2s;
+        }
+        .card:hover {
+            box-shadow: 0 8px 32px rgba(37,99,235,0.18);
+            transform: translateY(-2px) scale(1.01);
+        }
+        .table thead {
+            background: #e3f0ff;
+        }
+        .table-striped > tbody > tr:nth-of-type(odd) {
+            background: #fafdff;
+        }
+        .btn-primary, .btn-outline-primary:hover {
+            background: #2563eb !important;
+            border-color: #2563eb !important;
+            box-shadow: 0 2px 8px rgba(37,99,235,0.10);
+        }
+        .btn-outline-primary {
+            color: #2563eb !important;
+            border-color: #2563eb !important;
+            background: #fff !important;
+        }
+        .btn-warning {
+            background: #ffe066 !important;
+            border-color: #ffe066 !important;
+            color: #333 !important;
+        }
+        .badge.bg-success {
+            background: #51cf66 !important;
+            color: #fff;
+        }
+        .badge.bg-info, .badge.bg-info.text-dark {
+            background: #e3f0ff !important;
+            color: #2563eb !important;
+        }
+        .alert-success {
+            background: #e3fbe3;
+            color: #218838;
+            border-left: 5px solid #51cf66;
+        }
+        .alert-danger {
+            background: #fffbe6;
+            color: #d9480f;
+            border-left: 5px solid #ffe066;
+        }
+        /* Scrollbar đẹp */
+        ::-webkit-scrollbar {
+            width: 8px;
+            background: #e3f0ff;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #b6d4fe;
+            border-radius: 8px;
+        }
+        /* Hiệu ứng cho link */
+        a {
+            transition: color 0.2s, text-decoration 0.2s;
+        }
+        a:hover {
+            color: #2563eb;
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>

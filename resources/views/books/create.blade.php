@@ -22,23 +22,47 @@
                         </ul>
                     </div>
                 @endif
-                <form action="{{ route('books.store') }}" method="POST">
+                <form action="{{ route('books.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="mb-3">
                         <label class="form-label">Tên sách:</label>
-                        <input type="text" name="title" class="form-control" required>
+                        <input type="text" name="title" class="form-control" required autofocus placeholder="Nhập tên sách">
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Tác giả:</label>
-                        <input type="text" name="author" class="form-control" required>
+                        <input type="text" name="author" class="form-control" required placeholder="Nhập tên tác giả">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Nhà xuất bản:</label>
+                        <input type="text" name="publisher" class="form-control" placeholder="Nhập nhà xuất bản">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Năm xuất bản:</label>
+                        <input type="number" name="published_year" class="form-control" min="1900" max="{{ date('Y') }}">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Thể loại:</label>
+                        <input type="text" name="category" class="form-control" placeholder="Nhập thể loại">
+                    </div>
+                    <div class="mb-3">
+    <label class="form-label">Mô tả ngắn:</label>
+    <textarea name="description" class="form-control" rows="3" placeholder="Nhập mô tả về sách"></textarea>
+</div>
+                    <div class="mb-3">
+                        <label class="form-label">Mã sách/ISBN:</label>
+                        <input type="text" name="isbn" class="form-control" placeholder="Nhập mã sách hoặc ISBN">
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Số lượng:</label>
-                        <input type="number" name="quantity" class="form-control" required>
+                        <input type="number" name="quantity" class="form-control" required min="0">
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Còn lại:</label>
-                        <input type="number" name="available" class="form-control" required>
+                        <input type="number" name="available" class="form-control" required min="0">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Ảnh bìa:</label>
+                        <input type="file" name="cover_image" class="form-control" accept="image/*">
                     </div>
                     <button type="submit" class="btn btn-success">
                         <i class="bi bi-save"></i> Lưu
