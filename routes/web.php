@@ -14,4 +14,6 @@ Route::resource('borrow-logs', BorrowLogController::class)->middleware('auth');
 
 Auth::routes();
 
+Route::post('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
+
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

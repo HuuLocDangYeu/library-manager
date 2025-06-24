@@ -14,7 +14,7 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm">
         <div class="container">
-            <a class="navbar-brand fw-bold" href="{{ url('/') }}">
+            <a class="navbar-brand fw-bold" href="{{ url('home') }}">
                 <i class="bi bi-journal-bookmark-fill"></i> Thư viện
             </a>
             <div class="navbar-nav ms-auto">
