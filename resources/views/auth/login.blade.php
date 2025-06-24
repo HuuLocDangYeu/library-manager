@@ -5,6 +5,9 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
+    @extends('layouts.app')
+    @section('title', 'Đăng nhập')
+    @section('content')
     <div class="container mt-4" style="max-width: 500px;">
         <h2 class="mb-4">Đăng nhập</h2>
         @if ($errors->any())
@@ -30,5 +33,6 @@
             <a href="{{ route('register') }}" class="btn btn-link">Đăng ký</a>
         </form>
     </div>
+    @endsection
 </body>
 </html>
