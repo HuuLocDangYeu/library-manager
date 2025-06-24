@@ -6,46 +6,52 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
-<body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container">
-            <a class="navbar-brand" href="{{ url('/') }}">Thư viện</a>
-            <div class="navbar-nav">
+
+</html>
+{{-- filepath: resources/views/home.blade.php --}}
+@extends('layouts.app')
+@section('title', 'Trang chủ')
+@section('content')
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card border-primary">
+            <div class="card-body text-center">
+                <h2 class="card-title mb-4 text-primary">
+                    <i class="bi bi-journal-bookmark-fill"></i> Chào mừng đến với hệ thống quản lý thư viện!
+                </h2>
                 @auth
-                    <span class="nav-link">Chào {{ auth()->user()->name }} ({{ auth()->user()->role }})</span>
-                    <a class="nav-link" href="{{ route('books.index') }}">Danh sách sách</a>
-                    @if (auth()->user()->isAdmin())
-                        <a class="nav-link" href="{{ route('books.create') }}">Thêm sách</a>
-                        <a class="nav-link" href="{{ route('borrow-logs.index') }}">Quản lý mượn/trả</a>
-                    @else
-                        <a class="nav-link" href="{{ route('borrow-logs.create') }}">Mượn sách</a>
-                    @endif
-                    <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Đăng xuất</a>
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                        @csrf
-                    </form>
+                    <p class="mb-3">
+                        <span class="badge bg-info text-dark">
+                            <i class="bi bi-person-circle"></i> {{ auth()->user()->name }} ({{ auth()->user()->role }})
+                        </span>
+                    </p>
+                    <div class="mb-2">
+                        <a href="{{ route('books.index') }}" class="btn btn-primary me-2">
+                            <i class="bi bi-book"></i> Danh sách sách
+                        </a>
+                        @if (auth()->user()->isAdmin())
+                            <a href="{{ route('books.create') }}" class="btn btn-success me-2">
+                                <i class="bi bi-plus-circle"></i> Thêm sách
+                            </a>
+                            <a href="{{ route('borrow-logs.index') }}" class="btn btn-warning me-2">
+                                <i class="bi bi-clock-history"></i> Quản lý mượn/trả
+                            </a>
+                        @else
+                            <a href="{{ route('borrow-logs.create') }}" class="btn btn-info me-2">
+                                <i class="bi bi-journal-arrow-up"></i> Mượn sách
+                            </a>
+                        @endif
+                    </div>
                 @else
-                    <a class="nav-link" href="{{ route('login') }}">Đăng nhập</a>
-                    <a class="nav-link" href="{{ route('register') }}">Đăng ký</a>
+                    <a href="{{ route('login') }}" class="btn btn-primary me-2">
+                        <i class="bi bi-box-arrow-in-right"></i> Đăng nhập
+                    </a>
+                    <a href="{{ route('register') }}" class="btn btn-outline-secondary">
+                        <i class="bi bi-person-plus"></i> Đăng ký
+                    </a>
                 @endauth
             </div>
         </div>
-    </nav>
-
-    <div class="container mt-4">
-        @if (session('success'))
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                {{ session('success') }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        @endif
-        @if (session('error'))
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                {{ session('error') }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        @endif
-        @yield('content')
     </div>
-</body>
-</html>
+</div>
+@endsection
