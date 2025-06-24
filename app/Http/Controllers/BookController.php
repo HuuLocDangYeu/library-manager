@@ -12,7 +12,7 @@ class BookController extends Controller
     {
         $books = Book::all();
         $view = 'books.user-index';
-        if (Auth::check() && Auth::user()->isAdmin()) {
+        if (Auth::check() && Auth::user()->role === 'admin') {
             $view = 'books.admin-index';
         }
         return view($view, compact('books'));
