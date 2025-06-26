@@ -121,10 +121,19 @@ class BookController extends Controller
         $book = Book::findOrFail($id);
         return view('books.show', compact('book'));
     }
+    
+    public function userShow($id)
+    {
+        $book = Book::findOrFail($id);
+        return view('books.show_user', compact('book'));
+    }
 
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware('role:admin')->except('index');
+        // Chỉ bắt buộc admin với các hàm quản trị, KHÔNG áp dụng cho userShow
+        $this->middleware('role:admin')->only([
+            'create', 'store', 'edit', 'update', 'destroy', 'show'
+        ]);
     }
 }

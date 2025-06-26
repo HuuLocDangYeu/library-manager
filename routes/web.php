@@ -14,6 +14,7 @@ Route::delete('/books/{id}', [BookController::class, 'destroy'])->name('books.de
 Route::get('/books/{id}/edit', [BookController::class, 'edit'])->name('books.edit');
 Route::put('/books/{id}', [BookController::class, 'update'])->name('books.update');
 Route::get('/books/{id}', [BookController::class, 'show'])->name('books.show');
+Route::get('/user/books/{id}', [BookController::class, 'userShow'])->name('books.user_show');
 
 Auth::routes();
 
