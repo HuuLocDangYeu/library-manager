@@ -10,12 +10,16 @@
           'user_id',
           'book_id',
           'borrow_date',
+          'expected_return_date',
           'return_date',
+          'quantity',
           'status',
+          'note',
       ];
 
       protected $casts = [
           'borrow_date' => 'datetime',
+          'expected_return_date' => 'datetime',
           'return_date' => 'datetime',
           'status' => 'string',
       ];

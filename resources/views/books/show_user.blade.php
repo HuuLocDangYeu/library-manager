@@ -1,3 +1,4 @@
+
 @extends('layouts.app')
 @section('title', 'Chi tiết sách')
 @section('content')

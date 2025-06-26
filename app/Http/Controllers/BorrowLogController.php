@@ -10,14 +10,16 @@
 
   class BorrowLogController extends Controller
   {
-      public function create()
+      public function create(Request $request)
       {
           $books = Book::where('available', '>', 0)->get();
-            if (Auth::check() && Auth::user()->role === 'admin') {
-              return view('borrow-logs.admin-create', compact('books', 'users'));
+          $users = User::all();
+          $selectedBookId = $request->book_id; // lấy book_id từ query string
+
+          if (Auth::check() && Auth::user()->role === 'admin') {
+              return view('borrow-logs.admin-create', compact('books', 'users', 'selectedBookId'));
           }
-          return view('borrow-logs.user-create', compact('books', 'users'));
-          return view('borrow-logs.user-create', compact('books', 'users'));
+          return view('borrow-logs.user-create', compact('books', 'users', 'selectedBookId'));
       }
 
       public function store(Request $request)
@@ -26,21 +28,28 @@
               'user_id' => 'required|exists:users,id',
               'book_id' => 'required|exists:books,id',
               'borrow_date' => 'required|date',
+              'quantity' => 'required|integer|min:1',
+              'expected_return_date' => 'required|date|after_or_equal:borrow_date',
           ]);
 
           $book = Book::find($request->book_id);
-          if ($book->available > 0) {
+
+          // Kiểm tra còn đủ sách không
+          if ($book->available >= $request->quantity) {
               BorrowLog::create([
                   'user_id' => $request->user_id,
                   'book_id' => $request->book_id,
                   'borrow_date' => $request->borrow_date,
+                  'expected_return_date' => $request->expected_return_date,
+                  'quantity' => $request->quantity,
                   'status' => 'borrowed',
+                  'note' => $request->note,
               ]);
-              $book->available -= 1;
+              $book->available -= $request->quantity;
               $book->save();
-              return redirect()->route('borrow-logs.create')->with('success', 'Đã mượn sách thành công!');
+              return redirect()->route('books.user_show', $book->id)->with('success', 'Đã mượn sách thành công!');
           }
-          return redirect()->back()->with('error', 'Sách đã hết!');
+          return redirect()->back()->with('error', 'Không đủ sách để mượn!');
       }
 
       public function index()
@@ -58,7 +67,8 @@
               'status' => 'returned',
           ]);
           $book = $log->book;
-          $book->available += 1;
+          // Cộng lại đúng số lượng đã mượn
+          $book->available += $log->quantity;
           $book->save();
           return redirect()->route('borrow-logs.index')->with('success', 'Sách đã được trả thành công!');
       }
