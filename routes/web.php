@@ -16,6 +16,7 @@ Route::put('/books/{id}', [BookController::class, 'update'])->name('books.update
 Route::get('/books/{id}', [BookController::class, 'show'])->name('books.show');
 Route::get('/user/books/{id}', [BookController::class, 'userShow'])->name('books.user_show');
 Route::get('/borrow-logs/create', [BorrowLogController::class, 'create'])->name('borrow-logs.create');
+Route::post('/borrow-logs/{id}/confirm', [App\Http\Controllers\BorrowLogController::class, 'confirm'])->name('borrow-logs.confirm');
 
 
 Auth::routes();

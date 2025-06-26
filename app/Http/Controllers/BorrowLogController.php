@@ -42,7 +42,7 @@
                   'borrow_date' => $request->borrow_date,
                   'expected_return_date' => $request->expected_return_date,
                   'quantity' => $request->quantity,
-                  'status' => 'borrowed',
+                  'status' => 'pending',
                   'note' => $request->note,
               ]);
               $book->available -= $request->quantity;
@@ -71,6 +71,27 @@
           $book->available += $log->quantity;
           $book->save();
           return redirect()->route('borrow-logs.index')->with('success', 'Sách đã được trả thành công!');
+      }
+
+      public function confirm($id)
+      {
+          $log = \App\Models\BorrowLog::findOrFail($id);
+          $book = $log->book;
+
+          if ($log->status === 'pending') {
+              if ($book->available >= $log->quantity) {
+                  $log->status = 'borrowed';
+                  $log->save();
+
+                  $book->available -= $log->quantity;
+                  $book->save();
+
+                  return redirect()->back()->with('success', 'Đã xác nhận mượn sách!');
+              } else {
+                  return redirect()->back()->with('error', 'Không đủ sách để xác nhận!');
+              }
+          }
+          return redirect()->back();
       }
 
       public function __construct()

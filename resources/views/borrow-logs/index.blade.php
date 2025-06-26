@@ -12,7 +12,9 @@
                 <th>Người mượn</th>
                 <th>Sách</th>
                 <th>Ngày mượn</th>
+                <th>Ngày dự kiến trả</th>
                 <th>Ngày trả</th>
+                <th>Số lượng</th>
                 <th>Trạng thái</th>
                 <th>Hành động</th>
             </tr>
@@ -23,10 +25,27 @@
                     <td>{{ $log->user->name }}</td>
                     <td>{{ $log->book->title }}</td>
                     <td>{{ $log->borrow_date }}</td>
+                    <td>{{ $log->expected_return_date ?? '-' }}</td>
                     <td>{{ $log->return_date ?? 'Chưa trả' }}</td>
-                    <td>{{ $log->status }}</td>
+                    <td>{{ $log->quantity }}</td>
                     <td>
-                        @if (!$log->return_date)
+                        @if($log->status === 'pending')
+                            <span class="badge bg-warning text-dark">Chờ duyệt</span>
+                        @elseif($log->status === 'borrowed')
+                            <span class="badge bg-info text-dark">Đang mượn</span>
+                        @else
+                            <span class="badge bg-success">Đã trả</span>
+                        @endif
+                    </td>
+                    <td>
+                        @if($log->status === 'pending')
+                            <form action="{{ route('borrow-logs.confirm', $log->id) }}" method="POST" style="display:inline;">
+                                @csrf
+                                <button type="submit" class="btn btn-primary btn-sm" onclick="return confirm('Xác nhận đã giao sách cho người mượn?')">
+                                    Xác nhận đã mượn
+                                </button>
+                            </form>
+                        @elseif($log->status === 'borrowed' && !$log->return_date)
                             <form action="{{ route('borrow-logs.update', $log->id) }}" method="POST" style="display:inline;">
                                 @csrf
                                 @method('PUT')
